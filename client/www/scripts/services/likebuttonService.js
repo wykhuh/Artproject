@@ -3,28 +3,32 @@ angular.module('dangerousWrenchApp')
 
   var like = function(likeObject){
     likeObject.rating = 1;
-    console.log('likeObject', likeObject)
     var data = JSON.stringify(likeObject);
-    return $http({
+    console.log('likeObject', data);
+    $http({
       method: 'POST',
       url: '/like',
       dataType: 'json',
-      data: data
+      data: likeObject
     });
-    
+
+    return 1
+
   };
 
   var unlike = function(unlikeObject){
     unlikeObject.rating = -1;
-    console.log('unlikeObject', unlikeObject)
     var data = JSON.stringify(unlikeObject);
-    return $http({
+    console.log('unlikeObject', data);
+    $http({
       method: 'POST',
       url: '/like',
       dataType: 'json',
       data: data
     });
-    
+
+    return -1
+
   };
 
   return {

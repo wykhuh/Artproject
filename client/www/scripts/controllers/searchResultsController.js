@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch) {
+.controller('SearchResultsCtrl', function ($scope, $location, $rootScope, KeywordSearch, likeButton) {
     $scope.searchterms;
     $scope.artData = {};
     $scope.currentPage = 1;
@@ -14,12 +14,24 @@ angular.module('dangerousWrenchApp')
         .then(function (response) {
           $scope.allArtData = response.data;
           $scope.totalItems = $scope.allArtData.length;
-          console.log($scope.allArtData)
-          console.log($scope.totalItems)
           $scope.pageChanged()
         }, function (error) {
           console.log(error);
         })
+    };
+
+    var likeObject = {};
+
+    $scope.like = function(url){
+      likeObject.url = url;
+      likeObject.username = localStorage.getItem('userName');
+      likeButton.like(likeObject);
+    };
+
+    $scope.unlike = function(url){
+      likeObject.url = url;
+      likeObject.username = localStorage.getItem('userName');
+      likeButton.unlike(likeObject);
     };
 
     var q = $location.search().q;

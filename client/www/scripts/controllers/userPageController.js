@@ -1,5 +1,5 @@
 angular.module('dangerousWrenchApp')
-  
+
 .controller('UserController', function ($scope, KeywordSearch, userServices, $routeParams) {
     $scope.test = "hello"
     $scope.searchterms;
@@ -8,19 +8,17 @@ angular.module('dangerousWrenchApp')
     };
     $scope.username = $routeParams.user
     $scope.getuserId = function(){
-      console.log('hello')
       $scope.userID = userServices.grabUserID()
     };
     $scope.logout = userServices.logout;
- 
-    var temp = localStorage.getItem('userName')
 
+    var temp = localStorage.getItem('userName')
     //generateUserLikes is the factory function that queries
     //for a specific users 'liked' art
     console.log('passing in temp: ',temp)
     userServices.generateUserLikes(temp)
       .then(function(data) {
-        
+
         $scope.userLikesResults = data.data.results;
         console.log('user likes results', data.data.results)
 
